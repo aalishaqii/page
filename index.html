@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abdulkarim — Interactive Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0c0d;
+      --card:#0f1113;
+      --muted:#b9bcc0;
+      --accent:#0ea5ff;
+      --glass: rgba(255,255,255,0.03);
+      --btn:#121214;
+      --btn-hover:#2b2e33;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Inter',system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6e9eb;background:radial-gradient(1200px 400px at 10% 10%, rgba(14,165,255,0.03), transparent), var(--bg);}
+    a{color:inherit;text-decoration:none}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:60px 24px}
+    .card{width:100%;max-width:1200px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:36px;box-shadow:0 20px 50px rgba(2,6,23,0.7);position:relative;overflow:hidden}
+    .float-obj{position:absolute;border-radius:50%;filter:blur(48px) opacity(.85);transform:translate3d(0,0,0);mix-blend-mode:screen;pointer-events:none}
+    .float-obj.o1{width:520px;height:520px;left:-160px;top:-180px;background:linear-gradient(135deg,#0ea5ff55,#7c3aed44)}
+    .float-obj.o2{width:320px;height:320px;right:-120px;top:-140px;background:linear-gradient(135deg,#ff7ab655,#ffb86b33)}
+    .float-obj.o3{width:200px;height:200px;left:22%;bottom:-100px;background:linear-gradient(135deg,#34d39933,#60a5fa33)}
+    .grid{display:grid;grid-template-columns:380px 1fr;gap:32px;align-items:start}
+    .left{padding:10px}
+    .avatar{width:340px;height:340px;border-radius:20px;overflow:hidden;border:6px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 12px 50px rgba(2,6,23,0.6);position:relative}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .name{margin-top:18px;font-size:22px;font-weight:800}
+    .role{color:var(--muted);margin-top:6px}
+    .socials{display:flex;gap:12px;margin-top:18px}
+    .shiny-btn{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:12px;background:var(--btn);color:#e9eef2;font-weight:700;border:none;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(2,6,23,0.7);transition:transform .22s cubic-bezier(.2,.9,.3,1),background .22s,box-shadow .22s}
+    .shiny-btn .icon{width:22px;height:22px;display:inline-block;flex-shrink:0;opacity:.95}
+    .shiny-btn:before{content:'';position:absolute;left:-90%;top:0;width:70%;height:100%;background:linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0));transform:skewX(-20deg);transition:all .45s}
+    .shiny-btn:hover{transform:scale(1.06);background:var(--btn-hover);box-shadow:0 20px 50px rgba(0,0,0,0.6)}
+    .shiny-btn:hover:before{left:140%}
+    .social-row{display:flex;gap:12px;margin-top:20px}
+    .right{padding:6px}
+    .headline{display:flex;align-items:center;justify-content:space-between}
+    .headline h1{margin:0;font-size:30px}
+    .headline p{margin:0;color:var(--muted)}
+    .summary{margin-top:14px;color:var(--muted);line-height:1.6;font-size:15px}
+    .skills{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+    .skill-group{display:flex;gap:12px;flex-wrap:wrap}
+    .skill{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:10px 14px;border-radius:999px;font-weight:600;color:#e9eef2;box-shadow:0 8px 22px rgba(2,6,23,0.6)}
+    .sections{margin-top:28px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card-section{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:18px;border-radius:12px}
+    .card-section h3{margin:0 0 8px 0}
+    .list{margin:0;padding:0;list-style:none;color:var(--muted)}
+    .list li{padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in-view{opacity:1;transform:none}
+    @media (max-width:980px){.grid{grid-template-columns:1fr;}.avatar{width:260px;height:260px;margin:0 auto}.left{text-align:center}.headline h1{text-align:center}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="float-obj o1" data-depth="0.06"></div>
+      <div class="float-obj o2" data-depth="0.03"></div>
+      <div class="float-obj o3" data-depth="0.08"></div>
+
+      <div class="grid">
+        <div class="left">
+          <div class="avatar reveal" id="avatar">
+            <img src="WhatsApp Image 2025-11-09 at 05.53.17_c145d7af.jpg" alt="Avatar">
+          </div>
+
+          <div class="name">Abdulkarim Mohamed Adani Ibrahim</div>
+          <div class="role">Cybersecurity Analyst — Defensive & Offensive</div>
+
+          <div class="social-row reveal" aria-hidden="false">
+            <a href="https://instagram.com/yourhandle" target="_blank" class="shiny-btn">Instagram</a>
+            <a href="https://snapchat.com/add/yourhandle" target="_blank" class="shiny-btn">Snapchat</a>
+            <a href="https://x.com/yourhandle" target="_blank" class="shiny-btn">X</a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="headline reveal">
+            <div>
+              <h1>Interactive Resume — Defensive & Offensive Skills</h1>
+              <p>Practical, hands-on security: detection, incident response, and penetration testing.</p>
+            </div>
+            <div>
+              <button class="shiny-btn" onclick="window.print()">Print / Save</button>
+            </div>
+          </div>
+
+          <p class="summary reveal"><strong>Professional summary:</strong> I am a hands-on cybersecurity analyst with strong experience across both defensive (blue team) and offensive (red team) domains. On the defensive side I design, tune, and operate detection pipelines (SIEM, log collection, EDR), lead incident investigations and containment, perform threat hunting and forensic analysis, and harden hosts and networks. On the offensive side I perform reconnaissance, vulnerability scanning, web and network penetration testing (eJPT competency), exploitation, post-exploitation, and privilege escalation to validate defenses and deliver actionable remediation guidance. I bridge both worlds by translating offensive findings into defensive detections and improving security posture through measurable controls.</p>
+
+          <div class="skills reveal">
+            <div><strong>Defensive (Blue Team)</strong></div>
+            <div class="skill-group">
+              <div class="skill">SIEM: detection rule development (Splunk/ELK)</div>
+              <div class="skill">Endpoint Security & EDR tuning (detection & response)</div>
+              <div class="skill">Incident Response & Triage</div>
+              <div class="skill">Threat Hunting & IOC enrichment</div>
+              <div class="skill">Log Analysis & Forensics</div>
+              <div class="skill">Network Monitoring & IDS/IPS</div>
+              <div class="skill">Vulnerability Management & Remediation</div>
+              <div class="skill">Cloud Security Fundamentals (AWS)</div>
+            </div>
+
+            <div style="margin-top:12px"><strong>Offensive (Red Team / Pentest)</strong></div>
+            <div class="skill-group">
+              <div class="skill">Reconnaissance & OSINT</div>
+              <div class="skill">Network Scanning (Nmap) & Service Enumeration</div>
+              <div class="skill">Web App Testing (Burp Suite, manual testing)</div>
+              <div class="skill">Exploitation & Privilege Escalation</div>
+              <div class="skill">Post-exploitation & Persistence</div>
+              <div class="skill">Password attacks & credential harvesting</div>
+              <div class="skill">Report writing & remediation recommendations</div>
+              <div class="skill">Tools: Metasploit, Hydra, Nikto, sqlmap</div>
+            </div>
+          </div>
+
+          <div class="sections">
+            <div class="card-section reveal">
+              <h3>Certifications</h3>
+              <ul class="list">
+                <li>CompTIA CySA+ — detection, behavioral analytics, incident response</li>
+                <li>eJPT — practical penetration testing skills</li>
+              </ul>
+            </div>
+
+            <div class="card-section reveal">
+              <h3>Tools & Technologies</h3>
+              <ul class="list">
+                <li>SIEM: Splunk / ELK</li>
+                <li>EDR & Forensics: Volatility, Autopsy, osquery</li>
+                <li>PenTest: Nmap, Burp Suite, Metasploit, sqlmap</li>
+                <li>Platforms: Linux, Windows, AWS</li>
+              </ul>
+            </div>
+
+            <div class="card-section reveal">
+              <h3>Experience Highlights</h3>
+              <ul class="list">
+                <li>Built detection rules that reduced false-positive noise by X%</li>
+                <li>Led tabletop and live incident response exercises</li>
+                <li>Performed web app pentests and delivered prioritized remediation reports</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('in-view');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    const floats = document.querySelectorAll('.float-obj');
+    window.addEventListener('scroll',()=>{
+      const top = window.scrollY;
+      floats.forEach(el=>{
+        const depth = parseFloat(el.dataset.depth) || 0.04;
+        const movement = top * depth;
+        el.style.transform = `translate3d(0,${movement}px,0)`;
+      });
+    },{passive:true});
+
+    document.querySelectorAll('.shiny-btn').forEach(btn=>{
+      btn.addEventListener('mouseenter',()=>btn.style.boxShadow='0 20px 50px rgba(0,0,0,0.6)');
+      btn.addEventListener('mouseleave',()=>btn.style.boxShadow='0 8px 30px rgba(2,6,23,0.7)');
+    });
+
+    document.querySelectorAll('.shiny-btn').forEach(b=>{
+      b.setAttribute('tabindex','0');
+      b.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' ') { b.click(); }});
+    });
+  </script>
+</body>
+</html>
